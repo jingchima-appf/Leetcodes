@@ -199,7 +199,7 @@ public class BitOperations {
         // Question 7:
         assert bitOperations.toHex(15).equals("0xF");
         assert bitOperations.toHex(33).equals("0x21");
-        
+
         assert bitOperations.toHexII(15).equals("0xF");
         assert bitOperations.toHexII(33).equals("0x21");
 
