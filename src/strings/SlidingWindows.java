@@ -135,15 +135,34 @@ public class SlidingWindows {
         return map;
     }
 
+    // Question 3: Given an array containing only 1 and 0, you can only flip at most k 0 to 1. Find the longest subarray
+    // This is essentially finding the longest subarray with at most k 0's.
 
-    private int restoreMapAndCounter(Map<Character, Integer> map, char cur, int counter) {
-        Integer occ = map.get(cur);
-        if (occ == 0) {
-            counter++;
+    public int longestSubarray(int[] array, int k) {
+        if (k < 0) {
+            return 0;
         }
-        map.put(cur, occ + 1);
-        return counter;
+        // [left, right) is the legal subarray
+        int left = 0;
+        int right = 0;
+        int counter = 0; // number of 0’s in the subarray
+        int max = 0;
+        while (right < array.length) {
+            if (array[right] == 0) {
+                counter++;
+            }
+            while (counter > k) {
+                if (array[left] == 0) {
+                    counter--;
+                }
+                left++;
+            }
+            right++;
+            max = Math.max(max, right - left);
+        }
+        return max;
     }
+
 
 
     public static void main(String[] args) {
@@ -151,6 +170,8 @@ public class SlidingWindows {
         // System.out.println(slidingWindows.longestSubstring("google"));
 
         System.out.println(slidingWindows.findAnagrams("google", "go"));
+
+        System.out.println(slidingWindows.longestSubarray(new int[] {0, 1, 1, 1, 0, 0, 1}, 2));
     }
 
 }
