@@ -142,12 +142,12 @@ public class BitOperations {
         StringBuilder sb = new StringBuilder().append("0x");
         for (int i = 28; i >= 0; i -= 4) {
             int cur = (num >> i) & 0x0F;
-            if (cur < 10) {
-                if (i == 0 || cur > 0) {
+            if (cur >= 10) {
+                sb.append((char) (cur - 10 + 'A'));  // forgot to convert into char
+            } else {
+                if (cur > 0 || sb.length() > 2 || i == 0) { // forgot to add sb.length() > 2
                     sb.append(cur);
                 }
-            } else {
-                sb.append((char) (cur - 10 + 'A'));
             }
         }
         return sb.toString();
