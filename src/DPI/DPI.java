@@ -45,6 +45,10 @@ public class DPI {
     /*
     Method II: DP
      */
+    // dp[i]: the maximum product with length = i and at least one cut
+    // _ _ _ _
+    // cut index = j, then [0, j) [j, length)
+    // dp[i] = Max { max(dp[j], j) * (lenth - j) } over j, j = 1: length-1
 
     public int cutRopesDP(int length) {
         if (length < 2) {
@@ -60,6 +64,8 @@ public class DPI {
         }
         return dp[length];
     }
+
+
 
     // Follow-up: Word-Break
     public boolean wordBreak(String s, List<String> dict) {
@@ -98,7 +104,8 @@ public class DPI {
         assert dpi.longestIncreasingSubarray(new int[] {1, 5, 3, 2, 4, 5}) == 3;
         assert dpi.longestIncreasingSubarray(new int[] {1, 5, 3, 3, 3, 5}) == 4;
 
-        System.out.println(dpi.cutRopes(25));
-        System.out.println(dpi.cutRopesDP(25));
+//        System.out.println(dpi.cutRopes(25));
+//        System.out.println(dpi.cutRopesDP(25));
+
     }
 }
