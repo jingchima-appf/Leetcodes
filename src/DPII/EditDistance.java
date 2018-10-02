@@ -42,7 +42,7 @@ public class EditDistance {
         for (int j = 1; j <= n; j++) {
             dp[0][j] = j;
         }
-        for (int i = 1; i <= m; i++) {
+        for (int i = 1; i <= m; i++) { // source <=> i
             dp[i][0] = i;
         }
         for (int i = 1; i <= m; i++) {
@@ -62,33 +62,33 @@ public class EditDistance {
         //  o  2  1  0  1  2
         //  d  3  2  1  1  1
         List<String> results = new ArrayList<>();
-        results.add(target);
-        int i = m;
-        int j = n;
-        while (!(i == 0 && j == 0)) {
-            if (i > 0 && j > 0 && source.charAt(i-1) == target.charAt(j-1)) {
+        results.add(source);
+        StringBuilder prev = new StringBuilder(source);
+        int i = m; // i, source; j, target
+        int j = n; // (i, j): coordinate in the dp matrix
+        // stop condition: when (i, j) == (0, 0)
+        // 每一步代表，应该对当前状态做什么。 当前状态是由前面的继承过来的！
+        while ( !( i == 0 && j == 0) ) {
+            if (source.charAt(i-1) == target.charAt(j-1)) {
                 i--;
                 j--;
             } else {
-                if (i > 0 && j > 0 && dp[i - 1][j - 1] + 1 == dp[i][j]) {
-                    // replace
-                    results.add(target.substring(0, j-1) + source.charAt(i - 1) + target.substring(j));
+                // replace
+                // source.charAt(i-1) is replaced with target.charAt(j-1)
+                if (i > 0 && j > 0 && dp[i][j] == dp[i-1][j-1] + 1) {
+                    prev.setCharAt(i-1, target.charAt(j-1));
                     i--;
                     j--;
-                } else if (i > 0 && dp[i - 1][j] + 1 == dp[i][j]) {
-                    // delete the i-th character in source
-                    // from (i-1, j) -> (i, j) delete the i-th character in source
-                    // source [0, i) + i + (i, m)
-                    // target [0, j) + [j, n)
-                    results.add( target.substring(0, j-1) + target.substring(j));
+                } else if (i > 0 && dp[i][j] == dp[i-1][j] + 1) {
+                    // delete source.charAt(i-1)
+                    prev.deleteCharAt(i-1);
                     i--;
                 } else {
-                    // add
-                    // from (i, j-1) -> (i, j) add a character at index i in source, to make it same as target[0, j)
-                    // so
-                    results.add(target.substring(0, j-1) + source.charAt(i - 1) + target.substring(j));
+                    // add target.charAt(j-1) to source at index i
+                    prev.insert(i, target.charAt(j-1));
                     j--;
                 }
+                results.add(prev.toString());
             }
         }
         return results;
@@ -96,6 +96,7 @@ public class EditDistance {
 
     public static void main(String[] args) {
         EditDistance instance = new EditDistance();
-        System.out.println(instance.getPath("good", "goo"));
+        System.out.println(instance.getPath("string", "srint"));
+        System.out.println(instance.getPath("diabolo", "piakolo"));
     }
 }
