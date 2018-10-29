@@ -1,6 +1,8 @@
 package forusallOA;
 
 public class ThreeParts {
+
+    // assumption: all the numbers are non-negative numbers!
     public static boolean threeParts(int[] nums) {
         if (nums.length < 5) {
             return false;
