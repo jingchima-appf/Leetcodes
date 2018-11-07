@@ -59,7 +59,6 @@ public class Test<T> {
         pq.offer(new Container(1));
         pq.offer(new Container(1));
         System.out.println(pq);
-
     }
 
 }

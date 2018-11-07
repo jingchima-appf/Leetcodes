@@ -112,6 +112,10 @@ public class CommonElements {
     // arrays.length >= 2
     // each array contains at least one element
     public List<Integer> commonElements(int[][] arrays) {
+        return iterative(arrays);
+    }
+
+    List<Integer> iterative(int[][] arrays) {
         List<Integer> res = new ArrayList<>();
         for (int num : arrays[0]) {
             res.add(num);
@@ -158,11 +162,45 @@ public class CommonElements {
     }
 
     /*
+        MethodII: binary reduction
+
+        A1
+            ->    B1
+        A2              -> C1
+
+        A3
+            ->    B2             -> D1
+        A4
+
+        A5  ->    B5    -> C2
+
+        time: O(k/2 * 2n +  k/4 * 2n + ... + 1 * 2n) = O(kn)
+        space: O(klogn)
 
      */
 
-    List<Integer> iterative(int[][] arrays) {
-        return null;
+    int[] binaryReduction(int[][] arrays) {
+        if (arrays.length == 1) {
+            return arrays[0];
+        }
+        // length = 4
+        // new array length 2
+        // index            0, 1 2
+        // old array       0,1 2,3
+        int[][] nextArray = new int[ (arrays.length + 1) / 2 ][];
+        for (int i = 0; i < nextArray.length; i++) {
+            int index1 = 2 * i;
+            int index2 = 2 * i + 1;
+            if (index2 > arrays.length) {
+                index2 = index1;
+            }
+            //nextArray[i] = commonElements(arrays[index1], arrays[index2]);
+        }
+        return binaryReduction(nextArray);
+    }
+
+    private void helper(int[][] arrays) {
+
     }
 
 }

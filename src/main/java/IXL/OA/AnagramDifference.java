@@ -1,4 +1,4 @@
-package IXLOA;
+package IXL.OA;
 
 public class AnagramDifference {
     public int[] numOfBits(String[] array1, String[] array2) {

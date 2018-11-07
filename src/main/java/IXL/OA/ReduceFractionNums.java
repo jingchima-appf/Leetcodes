@@ -1,4 +1,4 @@
-package IXLOA;
+package IXL.OA;
 
 public class ReduceFractionNums {
     /*

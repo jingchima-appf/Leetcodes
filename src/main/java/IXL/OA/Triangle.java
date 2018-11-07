@@ -1,4 +1,4 @@
-package IXLOA;
+package IXL.OA;
 
 public class Triangle {
     public boolean isTriangle(int a, int b, int c) {
